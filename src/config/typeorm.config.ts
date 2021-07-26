@@ -1,7 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-import { Contato } from 'src/contatos/model/contato.entity';
-import { Telefone } from 'src/contatos/model/telefone.entity';
+import { Contato } from 'src/contatos/contato.entity';
+import { Telefone } from 'src/telefones/telefone.entity';
 
 export const TypeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',

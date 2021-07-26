@@ -6,7 +6,7 @@ import {
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Contato } from './contato.entity';
+import { Contato } from '../contatos/contato.entity';
 
 @Entity()
 export class Telefone extends BaseEntity {
@@ -19,7 +19,7 @@ export class Telefone extends BaseEntity {
 	@ManyToOne(
 		() => Contato,
 		contato => contato.telefones,
-		{ eager: false },
+		{ onDelete: 'CASCADE', eager: false },
 	)
 	contato: Contato;
 

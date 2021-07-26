@@ -1,10 +1,22 @@
-import { Controller, Get, Post, Body, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+	Controller,
+	Get,
+	Post,
+	Body,
+	UsePipes,
+	ValidationPipe,
+	Param,
+	ParseIntPipe,
+	Patch,
+	Delete,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { ContatosService } from './contatos.service';
-import { Contato } from './model/contato.entity';
-import { ContatoRepository } from './repository/contatos.repository';
-import { CreateContatoDTO } from './DTO/create-contato.dto';
+import { Contato } from './contato.entity';
+import { ContatoRepository } from './contatos.repository';
+import { CreateContatoDTO } from './dto/create-contato.dto';
+import { UpdateContatoDTO } from './dto/update-contato.dto';
 
 @Controller('contatos')
 export class ContatosController {
@@ -20,8 +32,25 @@ export class ContatosController {
 	}
 
 	@Post('novo')
-	@UsePipes(ValidationPipe)
 	createContato(@Body() createContatoDTO: CreateContatoDTO): Promise<Contato> {
 		return this.contatosService.createContato(createContatoDTO);
+	}
+
+	@Get(':id')
+	getOneContato(@Param('id', ParseIntPipe) id: number): Promise<Contato> {
+		return this.contatosService.getOneContato(id);
+	}
+
+	@Patch('editar/:id')
+	updateContato(
+		@Param('id', ParseIntPipe) id: number,
+		@Body() updateContatoDTO: UpdateContatoDTO,
+	): Promise<Contato> {
+		return this.contatosService.uptadeContato(id, updateContatoDTO);
+	}
+
+	@Delete('excluir/:id')
+	deleteContato(@Param('id', ParseIntPipe) id: number): Promise<void> {
+		return this.contatosService.deleteContato(id);
 	}
 }

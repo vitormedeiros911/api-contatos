@@ -1,13 +1,16 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ContatosController } from './contatos.controller';
 import { ContatosService } from './contatos.service';
-import { ContatoRepository } from './repository/contatos.repository';
-import { TelefoneRepository } from './repository/telefone.repository';
+import { ContatoRepository } from './contatos.repository';
+import { TelefonesModule } from 'src/telefones/telefones.module';
 
 @Module({
-	imports: [TypeOrmModule.forFeature([ContatoRepository, TelefoneRepository])],
+	imports: [
+		TypeOrmModule.forFeature([ContatoRepository]),
+		forwardRef(() => TelefonesModule),
+	],
 	controllers: [ContatosController],
 	providers: [ContatosService],
 })

@@ -5,7 +5,7 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Telefone } from './telefone.entity';
+import { Telefone } from '../telefones/telefone.entity';
 
 @Entity()
 export class Contato extends BaseEntity {
