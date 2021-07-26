@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { CreateTelefoneDTO } from './dto/create-telefone.dto';
+import { TelefoneDTO } from './dto/telefone.dto';
 import { TelefoneRepository } from './telefone.repository';
 import { Telefone } from './telefone.entity';
 
@@ -12,15 +12,13 @@ export class TelefonesService {
 		private telefoneRepository: TelefoneRepository,
 	) {}
 
-	async createTelefone(
-		createTelefoneDTO: CreateTelefoneDTO,
-	): Promise<Telefone> {
+	async createTelefone(createTelefoneDTO: TelefoneDTO): Promise<Telefone> {
 		const telefone = this.telefoneRepository.create(createTelefoneDTO);
 		return await this.telefoneRepository.save(telefone);
 	}
 
 	async getTelefoneById(id: number): Promise<Telefone> {
-		const telefone = this.telefoneRepository.findOne({
+		const telefone = await this.telefoneRepository.findOne({
 			where: { id },
 		});
 
@@ -33,16 +31,16 @@ export class TelefonesService {
 
 	async updateTelefone(
 		id: number,
-		createTelefoneDTO: CreateTelefoneDTO,
+		updateTelefoneDTO: TelefoneDTO,
 	): Promise<Telefone> {
 		await this.getTelefoneById(id);
 
-		await this.telefoneRepository.update({ id }, createTelefoneDTO);
+		await this.telefoneRepository.update({ id }, updateTelefoneDTO);
 		return await this.getTelefoneById(id);
 	}
 
 	async deleteTelefone(id: number): Promise<void> {
 		await this.getTelefoneById(id);
-		await this.telefoneRepository.delete({ contatoId: id })
+		await this.telefoneRepository.delete({ id });
 	}
 }

@@ -9,7 +9,7 @@ import {
 	MinLength,
 } from 'class-validator';
 
-import { CreateTelefoneDTO as TelefoneDTO } from '../../telefones/dto/create-telefone.dto';
+import { TelefoneDTO } from '../../telefones/dto/telefone.dto';
 export class CreateContatoDTO {
 	@IsString({ message: 'O campo nome deve ser do tipo string' })
 	@IsNotEmpty({ message: 'O campo nome do contato não pode estar vazio' })

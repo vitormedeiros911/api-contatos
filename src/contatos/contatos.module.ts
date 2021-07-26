@@ -12,6 +12,6 @@ import { TelefonesModule } from 'src/telefones/telefones.module';
 		forwardRef(() => TelefonesModule),
 	],
 	controllers: [ContatosController],
-	providers: [ContatosService],
+	providers: [ContatosService]
 })
 export class ContatosModule {}
